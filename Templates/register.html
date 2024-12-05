@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Form Title */
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        /* Error Messages */
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Submit Button */
+        .form-submit {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-submit:hover {
+            background-color: #45a049;
+        }
+
+        /* Login Link */
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 class="form-title">Register</h2>
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            
+            <!-- Username -->
+            <div class="form-group">
+                <label for="registerName">Username:</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="error-message">
+                        {% for error in form.username.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email:</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="error-message">
+                        {% for error in form.email.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password:</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="error-message">
+                        {% for error in form.password1.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Confirm Password -->
+            <div class="form-group">
+                <label for="id_password">Re-password:</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="error-message">
+                        {% for error in form.password2.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group">
+                <label for="number">Phone No:</label>
+                <input type="number" id="number" name="number" value="{{ number|default:'' }}">
+                {% if errors.number %}
+                    <div class="error-message">{{ errors.number }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" value="{{ dob|default:'' }}">
+                {% if errors.dob %}
+                    <div class="error-message">{{ errors.dob }}</div>
+                {% endif %}
+            </div>
+
+            <!-- User Type -->
+            <div class="form-group">
+                <label for="user_type">User Type:</label>
+                <select name="user_type">
+                    <option value="">Select</option>
+                    <option value="Client" {% if user_type == "Client" %}selected{% endif %}>Client</option>
+                    <option value="Moderator" {% if user_type == "Moderator" %}selected{% endif %}>Moderator</option>
+                </select>
+                {% if errors.user_type %}
+                    <div class="error-message">{{ errors.user_type }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="form-submit">Submit</button>
+            
+            <!-- Login Link -->
+            <div class="login-link">
+                Already Registered? <a href="{% url 'login' %}">Login</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+     <style>
+        /* General Body and Layout */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    color: white;
+}
+
+.navbar-left h3 {
+    margin: 0;
+}
+
+.navbar-right a {
+    background-color: #ff5733;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Sidebar Styling */
+.main-container {
+    display: flex;
+}
+
+.sidebar {
+    width: 25%;
+    height: 1000px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.sidebar .menu {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar .menu li {
+    margin: 10px 0;
+}
+
+.sidebar .menu li a {
+    color: #333;
+    text-decoration: none;
+    padding: 8px;
+    display: block;
+    border-radius: 5px;
+}
+
+.sidebar .menu li a:hover {
+    background-color: #ddd;
+}
+
+/* Content Area */
+.content {
+    width: 70%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .content {
+        width: 100%;
+    }
+}
+
+</style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <h3>Dashboard</h3>
+        </div>
+        <div class="navbar-right">
+            <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul class="menu">
+                <li><a href="{% url 'user_details' %}">User Details</a></li>
+            </ul>
+        </aside>
+
+       
+   
+    <!-- Content Area -->
+    <div class="content">
+        {% block main %}
+        <p>hii</p>
+        <!-- Content will be inserted here -->
+        {% endblock %}
+    </div>
+</div>
+</body>
+</html>
